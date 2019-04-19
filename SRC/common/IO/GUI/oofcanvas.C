@@ -182,14 +182,14 @@ void OOFCanvas::destroy() {
   delete underlayer;
   
   if(mouse_callback) {
-    gtk_signal_disconnect(GTK_OBJECT(root), mouse_handler_id);
+    g_signal_handler_disconnect(GTK_OBJECT(root), mouse_handler_id);
     PyGILState_STATE pystate = acquirePyLock();
     Py_XDECREF(mouse_callback);
     releasePyLock(pystate);
   }
 
   if(config_callback) {
-    gtk_signal_disconnect(GTK_OBJECT(canvas), config_handler_id);
+    g_signal_handler_disconnect(GTK_OBJECT(canvas), config_handler_id);
     PyGILState_STATE pystate = acquirePyLock();
     Py_XDECREF(config_callback);
     releasePyLock(pystate);
@@ -210,13 +210,15 @@ void OOFCanvas::show() {
 
 int OOFCanvas::get_width_in_pixels() const {
   if(!canvas) throw ErrProgrammingError("No canvas!", __FILE__, __LINE__);
-  GtkAllocation &allocation = canvas->allocation;
+  GtkAllocation allocation;
+  gtk_widget_get_allocation(canvas, &allocation);
   return allocation.width;
 }
 
 int OOFCanvas::get_height_in_pixels() const {
   if(!canvas) throw ErrProgrammingError("No canvas!", __FILE__, __LINE__);
-  GtkAllocation &allocation = canvas->allocation;
+  GtkAllocation allocation; 
+  gtk_widget_get_allocation(canvas, &allocation);
   return allocation.height;
 }
 
@@ -279,7 +281,9 @@ PyObject *OOFCanvas::get_vadjustment() const {
 }
 
 ICoord OOFCanvas::get_allocation() const {
-  return ICoord(canvas->allocation.width, canvas->allocation.height);
+  GtkAllocation allocation;
+  gtk_widget_get_allocation(canvas, &allocation);
+  return ICoord(allocation.width, allocation.height);
 }
 
 void OOFCanvas::zoomAbout(double zoomfactor, const Coord *focuspt) {
@@ -783,8 +787,8 @@ void OOFCanvas::set_mouse_callback(PyObject *callback) {
   Py_XINCREF(callback);
   releasePyLock(pystate);
   mouse_handler_id = 
-    gtk_signal_connect(GTK_OBJECT(root), "event",
-		       GTK_SIGNAL_FUNC(OOFCanvas::mouse_event), this);
+    g_signal_connect(GTK_OBJECT(root), "event",
+		     G_CALLBACK(OOFCanvas::mouse_event), this);
 }
 
 gint OOFCanvas::mouse_event(GnomeCanvasItem *item, GdkEvent *event,
@@ -871,8 +875,8 @@ void OOFCanvas::set_configure_callback(PyObject *callback) {
   Py_XINCREF(callback);
   releasePyLock(pystate);
   config_handler_id = 
-    gtk_signal_connect(GTK_OBJECT(canvas), "size-allocate", 
-		       GTK_SIGNAL_FUNC(OOFCanvas::configure_event), this);
+    g_signal_connect(GTK_OBJECT(canvas), "size-allocate", 
+		     G_CALLBACK(OOFCanvas::configure_event), this);
 }
 
 gint OOFCanvas::configure_event(GnomeCanvas *item, GtkAllocation *alloc,

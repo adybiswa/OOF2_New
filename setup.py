@@ -1125,7 +1125,13 @@ def set_platform_values():
     ## Set platform-specific flags that don't specifically depend on
     ## OOF2 stuff.  They're stored in a dictionary just to keep things
     ## tidy.
-    platform['extra_compile_args'] = []
+
+    # Compilation flags that ensure that we're not using some gtk2
+    # constructions that don't work in gtk3.
+    platform['extra_compile_args'] = ["-DGTK_DISABLE_SINGLE_INCLUDES",
+                                      "-DGDK_DISABLE_DEPRECATED",
+                                      "-DGTK_DISABLE_DEPRECATED",
+                                      "-DGSEAL_ENABLE"]
     platform['macros'] = []
     platform['blas_libs'] = []
     platform['blas_link_args'] = []
