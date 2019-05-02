@@ -130,8 +130,8 @@ public:
   void draw_curve(const GnomeCanvasPoints *curve);
   void draw_polygon(const GnomeCanvasPoints *polygon);
   void fill_polygon(const GnomeCanvasPoints *polygon);
-  void draw_circle(const Coord&, double);
-  void fill_circle(const Coord&, double);
+  // void draw_circle(const Coord&, double);
+  // void fill_circle(const Coord&, double);
   void draw_image(const AbstractImage*, const Coord*, const Coord*);
   void draw_alpha_image(const AbstractImage*, const Coord*, const Coord*);
 												//unsigned char);

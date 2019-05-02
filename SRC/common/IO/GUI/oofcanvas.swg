@@ -279,8 +279,8 @@ public:
   void draw_curve(GnomeCanvasPoints *curve);
   void draw_polygon(GnomeCanvasPoints *curve);
   void fill_polygon(GnomeCanvasPoints *curve);
-  void draw_circle(Coord&, double);
-  void fill_circle(Coord&, double);
+  // void draw_circle(Coord&, double);
+  // void fill_circle(Coord&, double);
   void draw_image(AbstractImage*, Coord*, Coord *Point);
   void draw_alpha_image(AbstractImage*, Coord*, Coord *Point); //, unsigned char);
   void set_rubberband(RubberBand*);

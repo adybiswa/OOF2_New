@@ -91,10 +91,6 @@ class CanvasOutput(outputdevice.OutputDevice):
         else:
             self.canvas.set_lineColor(x)
 
-    def set_glyphSize(self, x):
-        debug.mainthreadTest()
-        self.canvas.set_glyphSize(x)
-        
     def set_fillColor(self, x):
         debug.mainthreadTest()
         if type(x) == type(1.0):
@@ -116,10 +112,6 @@ class CanvasOutput(outputdevice.OutputDevice):
     def draw_dot(self, dot):
         debug.mainthreadTest()
         self.canvas.draw_dot(dot)
-
-    def draw_scalarbar(self, lookuptable):
-        debug.mainthreadTest()
-        self.canvas.draw_scalarbar(lookuptable)
 
     def draw_voxel(self, voxel):
         debug.mainthreadTest()
@@ -152,22 +144,6 @@ class CanvasOutput(outputdevice.OutputDevice):
         else:
             self.canvas.draw_polygon(polygon)
 
-    def draw_cone_glyphs(self, polydata):
-        debug.mainthreadTest()
-        self.canvas.draw_cone_glyphs(polydata)
-
-    def draw_unstructuredgrid(self, polyhedra):
-        debug.mainthreadTest()
-        self.canvas.draw_unstructuredgrid(polyhedra)
-
-    def draw_unstructuredgrid_with_lookuptable(self, grid, lookuptable, mode="cell", scalarbar=True):
-        debug.mainthreadTest()
-        self.canvas.draw_unstructuredgrid_with_lookuptable(grid, lookuptable, mode, scalarbar)
-
-    def draw_filled_unstructuredgrid(self, grid):
-        debug.mainthreadTest()
-        self.canvas.draw_filled_unstructuredgrid(grid)
-
     def fill_polygon(self, polygon):
         debug.mainthreadTest()
         if type(polygon) == types.ListType:
@@ -176,13 +152,13 @@ class CanvasOutput(outputdevice.OutputDevice):
         else:
             self.canvas.fill_polygon(polygon)
 
-    def draw_circle(self, center, radius):
-        debug.mainthreadTest()
-        self.canvas.draw_circle(point2Coord(center), radius)
+    # def draw_circle(self, center, radius):
+    #     debug.mainthreadTest()
+    #     self.canvas.draw_circle(point2Coord(center), radius)
         
-    def fill_circle(self, center, radius):
-        debug.mainthreadTest()
-        self.canvas.fill_circle(point2Coord(center), radius)
+    # def fill_circle(self, center, radius):
+    #     debug.mainthreadTest()
+    #     self.canvas.fill_circle(point2Coord(center), radius)
 
     def draw_image(self, image, offset, size):
         debug.mainthreadTest()

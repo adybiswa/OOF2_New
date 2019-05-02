@@ -919,17 +919,17 @@ class PDFoutput(outputdevice.OutputDevice):
             self.expand_range(polygon)
             self.current_layer.add_command(PDFFilledPolygon(polygon))
 
-    def draw_circle(self, center, radius):
-	self.current_layer.add_command(PDFCircle(center,radius,0))
-	r=radius
-	self.expand_range(Rectangle(Coord(center[0]-r,center[1]-r),
-                                    Coord(center[0]+r,center[1]+r)))
+    # def draw_circle(self, center, radius):
+    #     self.current_layer.add_command(PDFCircle(center,radius,0))
+    #     r=radius
+    #     self.expand_range(Rectangle(Coord(center[0]-r,center[1]-r),
+    #                                 Coord(center[0]+r,center[1]+r)))
 
-    def fill_circle(self, center, radius):
-	self.current_layer.add_command(PDFCircle(center,radius,1))
-	r=radius
-	self.expand_range(Rectangle(Coord(center[0]-r,center[1]-r),
-                                    Coord(center[0]+r,center[1]+r)))
+    # def fill_circle(self, center, radius):
+    #     self.current_layer.add_command(PDFCircle(center,radius,1))
+    #     r=radius
+    #     self.expand_range(Rectangle(Coord(center[0]-r,center[1]-r),
+    #                                 Coord(center[0]+r,center[1]+r)))
 
     def draw_image(self,image,offset,size):
 	if image.sizeInPixels()==iPoint(0,0):
@@ -941,18 +941,6 @@ class PDFoutput(outputdevice.OutputDevice):
         self.current_layer.add_image(newimage)
         self.expand_range(Rectangle(offset,Coord(offset[0]+size[0],
                                                  offset[1]+size[1])))
-
-    def draw_shaped_image(self,image,offset,size,shapecolor):
-        ## No longer used in OOF
-        if image.sizeInPixels()==iPoint(0,0):
-            return
-        pdfid = len(self.objects)
-        self.objects.append(0) # Place-holder
-        newimage = PDFShapedImageObject(pdfid,image,offset,size,shapecolor)
-        self.images.append(newimage)
-        self.current_layer.add_image(newimage)
-        self.expand_range(Rectangle(offset,Coord(offset[0]+size[0],
-                                                 offset[1]+size[1])) )
 
     # Draws a shaped image and sets the alpha of the current layer.
     def draw_alpha_image(self, bitmap, offset, size):

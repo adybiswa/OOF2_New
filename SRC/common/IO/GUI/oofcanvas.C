@@ -599,7 +599,7 @@ void OOFCanvas::draw_curve(const GnomeCanvasPoints *points) {
 void OOFCanvas::draw_polygon(const GnomeCanvasPoints *points) {
   if(!canvas) throw ErrProgrammingError("No canvas!", __FILE__, __LINE__);
   
-  // Hacky workaround to avoid gnome_canvas_polyon operations -- draw
+  // Hacky workaround to avoid gnome_canvas_polygon operations -- draw
   // the segments individually.  See comment below for motivation.
   GnomeCanvasPoints *work;
   int size = points->num_points;
@@ -655,33 +655,33 @@ void OOFCanvas::fill_polygon(const GnomeCanvasPoints *points) {
 			NULL);
 }
 
-void OOFCanvas::draw_circle(const Coord &center, double radius) {
-//   std::cerr << "OOFCanvas::draw_circle" << std::endl;
-  if(!canvas) throw ErrProgrammingError("No canvas!", __FILE__, __LINE__);
-  empty = false;
-  gnome_canvas_item_new(current_layer->group(),
-			gnome_canvas_ellipse_get_type(),
-			"x1", center(0) - radius,
-			"y1", center(1) - radius,
-			"x2", center(0) + radius,
-			"y2", center(1) + radius,
-			"outline_color_rgba", lineColor,
-			NULL);
-}
+// void OOFCanvas::draw_circle(const Coord &center, double radius) {
+// //   std::cerr << "OOFCanvas::draw_circle" << std::endl;
+//   if(!canvas) throw ErrProgrammingError("No canvas!", __FILE__, __LINE__);
+//   empty = false;
+//   gnome_canvas_item_new(current_layer->group(),
+// 			gnome_canvas_ellipse_get_type(),
+// 			"x1", center(0) - radius,
+// 			"y1", center(1) - radius,
+// 			"x2", center(0) + radius,
+// 			"y2", center(1) + radius,
+// 			"outline_color_rgba", lineColor,
+// 			NULL);
+// }
 
-void OOFCanvas::fill_circle(const Coord &center, double radius) {
-//   std::cerr << "OOFCanvas::fill_circle" << std::endl;
-  if(!canvas) throw ErrProgrammingError("No canvas!", __FILE__, __LINE__);
-  empty = false;
-  gnome_canvas_item_new(current_layer->group(),
-			gnome_canvas_ellipse_get_type(),
-			"x1", center(0) - radius,
-			"y1", center(1) - radius,
-			"x2", center(0) + radius,
-			"y2", center(1) + radius,
-			"fill_color_rgba", fillColor,
-			NULL);
-}
+// void OOFCanvas::fill_circle(const Coord &center, double radius) {
+// //   std::cerr << "OOFCanvas::fill_circle" << std::endl;
+//   if(!canvas) throw ErrProgrammingError("No canvas!", __FILE__, __LINE__);
+//   empty = false;
+//   gnome_canvas_item_new(current_layer->group(),
+// 			gnome_canvas_ellipse_get_type(),
+// 			"x1", center(0) - radius,
+// 			"y1", center(1) - radius,
+// 			"x2", center(0) + radius,
+// 			"y2", center(1) + radius,
+// 			"fill_color_rgba", fillColor,
+// 			NULL);
+// }
 
 static void destStrImage(guchar *pixbuf_data, gpointer si) {
   delete (StringImage*) si;

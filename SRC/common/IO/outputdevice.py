@@ -51,9 +51,6 @@ class OutputDevice:
         "set_lineWidth(w):  w in units determined by boundingBox"
         self.unsupported("set_lineWidth")
 
-    def set_glyphSize(self, x):
-        self.unsupported("set_glyphSize")
-
     def set_lineColor(self, x):
         """
         should accept two forms:
@@ -107,26 +104,14 @@ class OutputDevice:
         else:
             self.draw_segments(polygon.edges())
 
-    def draw_cone_glyphs(self, polydata):
-        self.unsupported("draw_cone_glyphs")
-
-    def draw_unstructuredgrid(self, polyhedra):
-        self.unsupported("draw_unstructuredgrid")
-
-    def draw_filled_unstructuredgrid(self, grid):
-        self.unsupported("draw_filled_unstructuredgrid")
-
-    def draw_unstructuredgrid_with_lookuptable(self, grid, lookuptable, mode, scalarbar):
-        self.unsupported("draw_unstructuredgrid_with_lookuptable")
-
     def fill_polygon(self, polygon):
         self.unsupported("fill_polygon")
 
-    def draw_circle(self, center, radius):
-        self.unsupported("draw_circle")
+    # def draw_circle(self, center, radius):
+    #     self.unsupported("draw_circle")
 
-    def fill_circle(self, center, radius):
-        self.unsupported("fill_circle")
+    # def fill_circle(self, center, radius):
+    #     self.unsupported("fill_circle")
 
     def draw_image(self, image, offset, size):
         # image must have a method 'sizeInPixels()' which returns the
@@ -139,11 +124,6 @@ class OutputDevice:
         ## object.
         self.unsupported("draw_image")
 
-    def draw_shaped_image(self, image, offset, size, shapecolor):
-        # Just like draw_image, but pixels whose color is shapecolor
-        # aren't drawn.
-        self.unsupported("draw_shaped_image")
-
     def draw_alpha_image(self, image, offset, size):
         # image must have a method alphastringimage(alpha)
         self.unsupported("draw_alpha_image")
@@ -154,8 +134,8 @@ class OutputDevice:
     def set_fontsize(self, size):
         self.unsupported("set_fontsize")
 
-    def draw_label(self, position, text):
-        self.unsupported("draw_label")
+    # def draw_label(self, position, text):
+    #     self.unsupported("draw_label")
 
     def comment(self, remark):
         pass
@@ -189,7 +169,6 @@ class NullDevice(OutputDevice):
     def unsupported(x): pass
     def show(self): pass
     def set_lineWidth(self, w): pass
-    def set_glyphSize(self, x): pass
     def set_lineColor(self, x): pass
     def set_fillColor(self, x): pass
     def set_fillColorAlpha(self, x, a): pass
@@ -198,21 +177,16 @@ class NullDevice(OutputDevice):
     def draw_segments(self, seglist): pass
     def draw_curve(self, curve): pass
     def draw_polygon(self, polygon): pass
-    def draw_cone_glyphs(self, polydata): pass
-    def draw_unstructuredgrid(self, polyhedra): pass
-    def draw_filled_unstructuredgrid(self, grid): pass
-    def draw_unstructuredgrid_with_lookuptable(self, grid, lookuptable, mode, scalarbar): pass
     def fill_polygon(self, polygon): pass
-    def draw_circle(self, center, radius): pass
-    def fill_circle(self, center, radius): pass
+    # def draw_circle(self, center, radius): pass
+    # def fill_circle(self, center, radius): pass
     def draw_image(self, image, offset, size): pass
     def draw_alpha_image(self, *args): pass
-    def draw_shaped_image(self, *args): pass
     def draw_dot(self, dot): pass
     def draw_triangle(self, segment, angle): pass
     def set_font(self, font): pass
     def set_fontsize(self, size): pass
-    def draw_label(self, position, text): pass
+    # def draw_label(self, position, text): pass
     def comment(self, remark): pass
     def end_layer(self): pass
     def set_background(self, *args): pass
@@ -343,9 +317,6 @@ class BufferedOutputDevice (OutputDevice):
     def set_lineWidth(self, w):
         self.buffer.append(self.device.set_lineWidth, w)
 
-    def set_glyphSize(self, x):
-        self.buffer.append(self.device.set_glyphSize, x)
-
     def set_lineColor(self,x):
         self.buffer.append(self.device.set_lineColor, x)
 
@@ -370,26 +341,11 @@ class BufferedOutputDevice (OutputDevice):
     def draw_polygon(self, polygon):
         self.buffer.append(self.device.draw_polygon, polygon)
     
-    def draw_cone_glyphs(self, polydata):
-        self.buffer.append(self.device.draw_cone_glyphs, polydata)
-
-    def draw_unstructuredgrid(self, polyhedra):
-        self.buffer.append(self.device.draw_unstructuredgrid, polyhedra)
-
-    def draw_filled_unstructuredgrid(self, grid):
-        self.buffer.append(self.device.draw_filled_unstructuredgrid, grid)
-
-    def draw_unstructuredgrid_with_lookuptable(self, grid, lookuptable, mode="cell", scalarbar="true"):
-        self.buffer.append(self.device.draw_unstructuredgrid_with_lookuptable, grid, lookuptable, mode, scalarbar)
-
     def fill_polygon(self, polygon):
         self.buffer.append(self.device.fill_polygon, polygon)
 
     def draw_dot(self, dot):
         self.buffer.append(self.device.draw_dot, dot)
-
-    def draw_scalarbar(self, lookuptable):
-        self.buffer.append(self.device.draw_scalarbar, lookuptable)
 
     def draw_voxel(self, voxel):
         self.buffer.append(self.device.draw_voxel, voxel)
@@ -400,11 +356,11 @@ class BufferedOutputDevice (OutputDevice):
     def draw_triangle(self, segment, angle):
         self.buffer.append(self.device.draw_triangle, segment, angle)
 
-    def draw_circle(self, center, radius):
-        self.buffer.append(self.device.draw_circle, center, radius)
+    # def draw_circle(self, center, radius):
+    #     self.buffer.append(self.device.draw_circle, center, radius)
 
-    def fill_circle(self, center, radius):
-        self.buffer.append(self.device.fill_circle, center, radius)
+    # def fill_circle(self, center, radius):
+    #     self.buffer.append(self.device.fill_circle, center, radius)
 
     def draw_image(self, image, offset, size):
         self.buffer.append(self.device.draw_image, image, offset, size)
@@ -412,18 +368,14 @@ class BufferedOutputDevice (OutputDevice):
     def draw_alpha_image(self, image, offset, size):
         self.buffer.append(self.device.draw_alpha_image, image, offset, size)
 
-    def draw_shaped_image(self, image, offset, size, shapecolor):
-        self.buffer.append(self.device.draw_shaped_image, image, offset,
-                           size, shapecolor)
-
     def set_font(self, font):
         self.buffer.append(self.device.set_font, font)
 
     def set_fontsize(self, size):
         self.buffer.append(self.device.set_fontsize, size)
 
-    def draw_label(self, position, text):
-        self.buffer.append(device.draw_label, position, text)
+    # def draw_label(self, position, text):
+    #     self.buffer.append(device.draw_label, position, text)
         
     def comment(self, remark):
         self.buffer.append(self.device.comment, remark)
