@@ -15,3 +15,10 @@ attempting to do that raises a KeyError.
 Floating periodic boundary conditions.  For example, a system with
 thermal expansion and periodic boundary conditions should be able to
 expand as a whole.
+
+Input into the console window should be saved in logs.  User defined
+constants and functions that are use in boundary conditions or
+initializers need to be saved. Also, non-command lines can be read
+from input scripts, and they should be saved too.  When reading from a
+script, should logging be done by the script reader, and not by the
+menu command?  Menu commands are only logged when executed by the gui?
